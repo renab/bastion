@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071016" />
+  <meta name="description" content="Interactive Bastion product-design prototype for Naffin Enterprises." />
+  <title>Bastion — Naffin Enterprises</title>
+  <link rel="icon" type="image/png" href="assets/naffin-emblem-64.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-nav="brief" aria-label="Open Executive Brief">
+        <img class="brand-logo" src="assets/naffin-emblem-64.png" alt="" />
+        <span><strong>BASTION</strong><small>NAFFIN ENTERPRISES</small></span>
+      </button>
+      <div class="source-health" aria-label="Prototype data sources">
+        <span><i class="dot live"></i>Nexum <b>20s</b></span>
+        <span><i class="dot live"></i>ESI <b>4m</b></span>
+        <span><i class="dot warm"></i>Bastion Core <b>local</b></span>
+      </div>
+      <button class="search-trigger" id="searchTrigger"><span>⌕</span> Search Bastion <kbd>Ctrl K</kbd></button>
+      <div class="clock"><strong>09:14</strong><small>PROTOTYPE</small></div>
+    </header>
+
+    <aside class="sidebar" aria-label="Primary navigation">
+      <nav id="nav"></nav>
+      <div class="hq-block">
+        <p>OPERATIONS HQ</p><strong>J154212 · Home</strong>
+        <p>MARKET HQ</p><strong>Amarr · Provisional</strong>
+        <button class="settings-cog" data-nav="settings" aria-label="Open Settings">⚙ <span>Settings</span></button>
+      </div>
+    </aside>
+
+    <main id="main" tabindex="-1"></main>
+    <aside class="drawer" id="drawer" aria-hidden="true"></aside>
+    <div class="scrim" id="scrim"></div>
+  </div>
+
+  <dialog id="searchDialog" class="search-dialog">
+    <form method="dialog" class="search-box">
+      <div class="search-head"><span>⌕</span><input id="searchInput" placeholder="Search systems, characters, plans, orders…" autofocus /><button aria-label="Close">×</button></div>
+      <div id="searchResults" class="search-results"></div>
+    </form>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

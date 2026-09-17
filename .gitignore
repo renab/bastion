@@ -8,6 +8,8 @@
 # Node / frontend
 node_modules/
 dist/
+!prototype/dist/
+!prototype/dist/**
 build/
 .next/
 .vite/

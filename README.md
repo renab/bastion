@@ -47,10 +47,11 @@ Current first-class product areas include:
 - Procurement & Logistics
 - Industry
 - Planetary Interaction
-- Finance / Books
-- Sites / Knowledge
+- Finance
+- Knowledgebase
 - Analytics
-- Configuration / Integrations
+
+Settings is a secondary administration surface behind the application cog rather than a primary product domain. Character ESI authorization belongs to Accounts / Characters; Settings contains only organization, system integration, preference, and advanced controls.
 
 These are still subject to refinement as product design continues.
 
@@ -83,15 +84,11 @@ The current branding direction centers on a blue/gold wormhole emblem representi
 - connection
 - exploration
 
-Current tagline:
-
-**Wormhole Logistics & Operations**
-
 Brand assets live under:
 
 assets/branding/
 
-Production branding should use scalable SVG/vector assets where practical, with high-resolution raster elements where needed for the wormhole core.
+The approved high-resolution transparent PNG artwork is the visual source of truth for the full corporate lockup. The emblem may also be used independently at smaller interface sizes.
 
 ## Inventory UX
 
@@ -156,6 +153,8 @@ app/         Future production frontend and backend
 data/        Sanitized sample data and test fixtures
 scripts/     Project tooling and helper scripts
 
+The current buildless prototype is in `prototype/dist/`. Open `prototype/dist/index.html` directly or serve that directory with any local static web server.
+
 ## Security / Public Repository Policy
 
 This repository is public.
@@ -176,7 +175,3 @@ Use sanitized sample data and fixtures for examples and testing.
 ## License
 
 License to be selected and confirmed before code reuse/distribution assumptions are made.
-
----
-
-Bastion is built to make a one-person wormhole company easier to operate.
