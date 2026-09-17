@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+<title id="title">Naffin Enterprises emblem</title><desc id="desc">Stylized vector wormhole surrounded by blue and gold navigation geometry.</desc>
+<defs>
+  <linearGradient id="blueMetal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#87D7FF"/><stop offset=".34" stop-color="#368DFF"/><stop offset=".72" stop-color="#3054CD"/><stop offset="1" stop-color="#16328E"/></linearGradient>
+  <linearGradient id="goldMetal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFF0A5"/><stop offset=".35" stop-color="#F2C44B"/><stop offset=".72" stop-color="#CD8A30"/><stop offset="1" stop-color="#72450B"/></linearGradient>
+  <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset=".30" stop-color="#DDEBFA"/><stop offset=".58" stop-color="#8DB6DF"/><stop offset=".82" stop-color="#F1F6FB"/><stop offset="1" stop-color="#6C94BE"/></linearGradient>
+  <radialGradient id="void"><stop stop-color="#02040A"/><stop offset=".7" stop-color="#070B16"/><stop offset="1" stop-color="#1A1A1A"/></radialGradient>
+  <linearGradient id="vortex" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55E8FF"/><stop offset=".32" stop-color="#116EFF"/><stop offset=".62" stop-color="#3054CD"/><stop offset=".78" stop-color="#F7C44A"/><stop offset="1" stop-color="#CD8A30"/></linearGradient>
+  <filter id="glow" x="-35%" y="-35%" width="170%" height="170%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <clipPath id="coreClip"><circle cx="512" cy="512" r="356"/></clipPath>
+</defs><g clip-path="url(#coreClip)"><circle cx="512" cy="512" r="350" fill="#1A1A1A" opacity=".96"/>
+  <g filter="url(#glow)"><path d="M180 524C240 252 548 140 768 292C930 404 852 720 620 830C392 938 154 764 202 552" fill="none" stroke="url(#vortex)" stroke-width="72" stroke-linecap="round" opacity="0.78"/><path d="M252 646C126 430 354 192 602 226C864 262 920 548 750 716C558 904 282 820 252 646" fill="none" stroke="url(#vortex)" stroke-width="46" stroke-linecap="round" opacity="0.72"/><path d="M306 426C454 212 766 280 822 504C866 682 678 842 494 760C310 678 250 536 306 426" fill="none" stroke="url(#vortex)" stroke-width="30" stroke-linecap="round" opacity="0.88"/><path d="M742 368C904 526 766 800 530 794C318 788 234 560 350 414C456 282 634 278 742 368" fill="none" stroke="url(#vortex)" stroke-width="18" stroke-linecap="round" opacity="0.94"/></g><circle cx="512" cy="512" r="148" fill="url(#void)" stroke="#07132A" stroke-width="8"/></g><g aria-label="vector compass and orbital frame">
+  <path d="M208 442A322 322 0 0 1 812 390" fill="none" stroke="#8A5A14" stroke-width="38" stroke-linecap="round"/>
+  <path d="M208 442A322 322 0 0 1 812 390" fill="none" stroke="url(#goldMetal)" stroke-width="27" stroke-linecap="round"/>
+  <path d="M198 500A322 322 0 0 0 824 500" fill="none" stroke="#10255E" stroke-width="38" stroke-linecap="round"/>
+  <path d="M198 500A322 322 0 0 0 824 500" fill="none" stroke="url(#blueMetal)" stroke-width="27" stroke-linecap="round"/>
+  <path d="M512 42l22 118-22 62-22-62z" fill="url(#goldMetal)" stroke="#70450A" stroke-width="5"/>
+  <path d="M512 982l22-118-22-62-22 62z" fill="url(#blueMetal)" stroke="#10255E" stroke-width="5"/>
+  <circle cx="512" cy="166" r="34" fill="url(#goldMetal)" stroke="#70450A" stroke-width="6"/>
+  <circle cx="512" cy="858" r="34" fill="url(#blueMetal)" stroke="#10255E" stroke-width="6"/>
+  <circle cx="203" cy="443" r="25" fill="url(#goldMetal)" stroke="#70450A" stroke-width="5"/>
+  <circle cx="821" cy="392" r="25" fill="url(#blueMetal)" stroke="#10255E" stroke-width="5"/>
+  <circle cx="512" cy="512" r="378" fill="none" stroke="#CD8A30" stroke-width="5" stroke-dasharray="4 14" opacity=".75"/>
+  <circle cx="512" cy="512" r="392" fill="none" stroke="#3054CD" stroke-width="4" stroke-dasharray="2 18" opacity=".8"/>
+</g></svg>
