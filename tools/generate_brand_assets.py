@@ -250,16 +250,17 @@ def main() -> None:
     core_source = stored_core if stored_core.exists() else generated
     core=Image.open(core_source).convert("RGBA").resize((2048,2048),Image.Resampling.LANCZOS)
     core.save(RASTER/"wormhole-core-2048.png",optimize=True)
-    (SVG/"naffin-emblem.svg").write_text(emblem_svg(True),encoding="utf-8")
-    (SVG/"naffin-emblem-vector.svg").write_text(emblem_svg(False),encoding="utf-8")
-    (SVG/"naffin-lockup.svg").write_text(lockup_svg(True),encoding="utf-8")
-    (SVG/"naffin-lockup-vector.svg").write_text(lockup_svg(False),encoding="utf-8")
-    (SVG/"naffin-lockup-hybrid.svg").write_text(lockup_svg(True),encoding="utf-8")
+    # Approved transparent artwork is canonical. SVG experiments are retained
+    # for design history, but are intentionally not regenerated.
+    approved_emblem = Image.open(REFS/"naffin-emblem-approved-reference.png").convert("RGBA")
+    approved_lockup = Image.open(REFS/"naffin-full-lockup-approved-reference.png").convert("RGBA")
+    shutil.copy2(REFS/"naffin-emblem-approved-reference.png", RASTER/"naffin-emblem-master.png")
+    shutil.copy2(REFS/"naffin-full-lockup-approved-reference.png", EXPORTS/"naffin-lockup-master.png")
     for size in (64,128,256,512):
-        img=render_emblem(core,size)
+        img=approved_emblem.resize((size,size), Image.Resampling.LANCZOS)
         img.save(RASTER/f"naffin-emblem-{size}.png",optimize=True)
         img.save(RASTER/f"naffin-emblem-{size}.webp",format="WEBP",lossless=True,method=6)
-    lock=render_lockup(core)
+    lock=approved_lockup.resize((1600,1600), Image.Resampling.LANCZOS)
     lock.save(EXPORTS/"naffin-lockup-1600.png",optimize=True)
     lock.save(EXPORTS/"naffin-lockup-1600.webp",format="WEBP",lossless=True,method=6)
 
