@@ -1,0 +1,38 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node / frontend
+node_modules/
+dist/
+build/
+.next/
+.vite/
+
+# Python / backend
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local runtime / caches
+.cache/
+tmp/
+temp/
+logs/
+
+# Bastion private/local operational data
+data/private/
+data/live/
+secrets/
+credentials/
