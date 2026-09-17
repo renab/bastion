@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import shutil
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -108,27 +109,33 @@ def wordmark_paths() -> str:
 <path d="M331 173l21-62 22 62z" fill="url(#goldMetal)" stroke="{GOLD}" stroke-width="3"/>'''
 
 
+def embedded_core() -> str:
+    payload = base64.b64encode((RASTER / "wormhole-core-2048.png").read_bytes()).decode("ascii")
+    return f"data:image/png;base64,{payload}"
+
+
 def lockup_svg(hybrid: bool) -> str:
     enterprise, ew = pixel_path("ENTERPRISES", 0, 0, 11, 1.7)
     tagline, tw = pixel_path("WORMHOLE LOGISTICS & OPERATIONS", 0, 0, 4.6, 1.55)
-    core = '<image href="../raster/wormhole-core-2048.png" x="156" y="156" width="712" height="712" preserveAspectRatio="xMidYMid meet" clip-path="url(#coreClip)"/>' if hybrid else vector_core()
+    core = f'<image href="{embedded_core()}" x="156" y="156" width="712" height="712" preserveAspectRatio="xMidYMid meet" clip-path="url(#coreClip)"/>' if hybrid else vector_core()
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
 <title id="title">Naffin Enterprises logo</title><desc id="desc">Blue and gold wormhole compass emblem with Naffin Enterprises wordmark and Wormhole Logistics and Operations tagline.</desc>
 {defs()}
-<g transform="translate(88 10)">{core}{frame()}</g>
-<g transform="translate(20 1015)">{wordmark_paths()}</g>
-<path d="{enterprise}" fill="url(#silver)" transform="translate({(1200-ew)/2:g} 1290)"/>
-<path d="{tagline}" fill="#C9D8E7" transform="translate({(1200-tw)/2:g} 1400)"/>
-<path d="M100 1370H548" stroke="{BLUE}" stroke-width="8"/><circle cx="600" cy="1370" r="13" fill="{GOLD}"/><path d="M652 1370H1100" stroke="{GOLD}" stroke-width="8"/>
+<g transform="translate(170 -4) scale(.84)">{core}{frame()}</g>
+<g transform="translate(20 775)">{wordmark_paths()}</g>
+<path d="{enterprise}" fill="url(#silver)" transform="translate({(1200-ew)/2:g} 1020)"/>
+<path d="M100 1110H548" stroke="{BLUE}" stroke-width="8"/><circle cx="600" cy="1110" r="13" fill="{GOLD}"/><path d="M652 1110H1100" stroke="{GOLD}" stroke-width="8"/>
+<path d="{tagline}" fill="#C9D8E7" transform="translate({(1200-tw)/2:g} 1140)"/>
 </svg>'''
 
 
-def emblem_svg() -> str:
+def emblem_svg(hybrid: bool) -> str:
+    core = f'<image href="{embedded_core()}" x="156" y="156" width="712" height="712" preserveAspectRatio="xMidYMid meet" clip-path="url(#coreClip)"/>' if hybrid else vector_core()
     return f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
 <title id="title">Naffin Enterprises emblem</title><desc id="desc">Stylized vector wormhole surrounded by blue and gold navigation geometry.</desc>
-{defs()}{vector_core()}{frame()}</svg>'''
+{defs()}{core}{frame()}</svg>'''
 
 
 def load_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -172,23 +179,23 @@ def tracked_text(draw: ImageDraw.ImageDraw, xy: tuple[int,int], text: str, font:
 
 
 def render_lockup(core: Image.Image, width: int=1600) -> Image.Image:
-    h=2000
+    h=1600
     out=Image.new("RGBA",(width,h),(0,0,0,0))
-    emblem=render_emblem(core,1220)
-    out.alpha_composite(emblem,((width-1220)//2,0))
+    emblem=render_emblem(core,1060)
+    out.alpha_composite(emblem,((width-1060)//2,0))
     d=ImageDraw.Draw(out)
     word=load_font(250,True); silver=(220,235,248,255)
     label="NAFFIN"; tracking=20
     lengths=[d.textlength(c,font=word) for c in label]; total=int(sum(lengths)+tracking*(len(label)-1))
-    tracked_text(d,((width-total)//2,1185),label,word,silver,tracking)
+    tracked_text(d,((width-total)//2,1010),label,word,silver,tracking)
     # Approved triangular gold counter/accent inside the A.
     ax=(width-total)//2+int(lengths[0])+tracking
-    d.polygon([(ax+74,1398),(ax+118,1320),(ax+160,1398)],fill=(205,138,48,255))
+    d.polygon([(ax+74,1223),(ax+118,1145),(ax+160,1223)],fill=(205,138,48,255))
     sub=load_font(92,False); subtext="ENTERPRISES"; sw=int(d.textlength(subtext,font=sub)+14*(len(subtext)-1))
-    tracked_text(d,((width-sw)//2,1485),subtext,sub,(205,220,235,255),14)
+    tracked_text(d,((width-sw)//2,1240),subtext,sub,(205,220,235,255),14)
     tag=load_font(45,True); t="WORMHOLE LOGISTICS & OPERATIONS"; tw=int(d.textlength(t,font=tag)+5*(len(t)-1))
-    tracked_text(d,((width-tw)//2,1730),t,tag,(190,205,220,255),5)
-    d.line((125,1690,710,1690),fill=(48,84,205,255),width=8); d.ellipse((785,1678,809,1702),fill=(205,138,48,255)); d.line((884,1690,1475,1690),fill=(205,138,48,255),width=8)
+    tracked_text(d,((width-tw)//2,1432),t,tag,(190,205,220,255),5)
+    d.line((125,1390,710,1390),fill=(48,84,205,255),width=8); d.ellipse((788,1378,812,1402),fill=(205,138,48,255)); d.line((890,1390,1475,1390),fill=(205,138,48,255),width=8)
     return out
 
 
@@ -201,8 +208,10 @@ def main() -> None:
     core_source = stored_core if stored_core.exists() else generated
     core=Image.open(core_source).convert("RGBA").resize((2048,2048),Image.Resampling.LANCZOS)
     core.save(RASTER/"wormhole-core-2048.png",optimize=True)
-    (SVG/"naffin-emblem.svg").write_text(emblem_svg(),encoding="utf-8")
-    (SVG/"naffin-lockup.svg").write_text(lockup_svg(False),encoding="utf-8")
+    (SVG/"naffin-emblem.svg").write_text(emblem_svg(True),encoding="utf-8")
+    (SVG/"naffin-emblem-vector.svg").write_text(emblem_svg(False),encoding="utf-8")
+    (SVG/"naffin-lockup.svg").write_text(lockup_svg(True),encoding="utf-8")
+    (SVG/"naffin-lockup-vector.svg").write_text(lockup_svg(False),encoding="utf-8")
     (SVG/"naffin-lockup-hybrid.svg").write_text(lockup_svg(True),encoding="utf-8")
     for size in (64,128,256,512):
         img=render_emblem(core,size)
