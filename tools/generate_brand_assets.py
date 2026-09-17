@@ -53,6 +53,48 @@ def pixel_path(text: str, x: float, y: float, cell: float, gap: float = 2.0) -> 
     return "".join(cmds), cursor - x
 
 
+LINE_GLYPHS = {
+    "A": "M0 1L.5 0L1 1M.2 .62H.8", "C": "M1 0H.2L0 .2V.8L.2 1H1",
+    "E": "M1 0H0V1H1M0 .5H.78", "G": "M1 0H.2L0 .2V.8L.2 1H1V.55H.58",
+    "H": "M0 0V1M1 0V1M0 .5H1", "I": "M0 0H1M.5 0V1M0 1H1",
+    "L": "M0 0V1H1", "M": "M0 1V0L.5 .55L1 0V1", "N": "M0 1V0L1 1V0",
+    "O": "M.2 0H.8L1 .2V.8L.8 1H.2L0 .8V.2Z", "P": "M0 1V0H.75L1 .2V.42L.75 .58H0",
+    "R": "M0 1V0H.75L1 .2V.42L.75 .58H0M.58 .58L1 1", "S": "M1 .08L.8 0H.2L0 .2V.42L.2 .5H.8L1 .58V.8L.8 1H.2L0 .92",
+    "T": "M0 0H1M.5 0V1", "W": "M0 0L.2 1L.5 .45L.8 1L1 0", "&": "M.9 .25L.75 .05H.3L.1 .25L.75 1H1M.55 .55L.2 1H0",
+}
+
+
+def line_path(text: str, height: float, tracking: float) -> tuple[str, float]:
+    import re
+    width = height * .62
+    cursor = 0.0
+    parts: list[str] = []
+    for ch in text:
+        if ch == " ":
+            cursor += width * .65
+            continue
+        raw = LINE_GLYPHS[ch]
+        tokens = re.findall(r"[A-Za-z]|-?(?:\d+(?:\.\d*)?|\.\d+)", raw)
+        out: list[str] = []
+        command = ""
+        axis = 0
+        for token in tokens:
+            if token.isalpha():
+                command, axis = token, 0
+                out.append(token)
+                continue
+            value = float(token)
+            if command.upper() == "H": value = cursor + value * width
+            elif command.upper() == "V": value = value * height
+            else:
+                value = cursor + value * width if axis % 2 == 0 else value * height
+                axis += 1
+            out.append(f"{value:g}")
+        parts.append(" ".join(out))
+        cursor += width + tracking
+    return " ".join(parts), cursor - tracking
+
+
 def defs() -> str:
     return f'''<defs>
   <linearGradient id="blueMetal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#87D7FF"/><stop offset=".34" stop-color="#368DFF"/><stop offset=".72" stop-color="{BLUE}"/><stop offset="1" stop-color="#16328E"/></linearGradient>
@@ -115,18 +157,18 @@ def embedded_core() -> str:
 
 
 def lockup_svg(hybrid: bool) -> str:
-    enterprise, ew = pixel_path("ENTERPRISES", 0, 0, 11, 1.7)
-    tagline, tw = pixel_path("WORMHOLE LOGISTICS & OPERATIONS", 0, 0, 4.6, 1.55)
+    enterprise, ew = line_path("ENTERPRISES", 64, 19)
+    tagline, tw = line_path("WORMHOLE LOGISTICS & OPERATIONS", 30, 9)
     core = f'<image href="{embedded_core()}" x="156" y="156" width="712" height="712" preserveAspectRatio="xMidYMid meet" clip-path="url(#coreClip)"/>' if hybrid else vector_core()
     return f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1254 1254" role="img" aria-labelledby="title desc">
 <title id="title">Naffin Enterprises logo</title><desc id="desc">Blue and gold wormhole compass emblem with Naffin Enterprises wordmark and Wormhole Logistics and Operations tagline.</desc>
 {defs()}
-<g transform="translate(170 -4) scale(.84)">{core}{frame()}</g>
-<g transform="translate(20 775)">{wordmark_paths()}</g>
-<path d="{enterprise}" fill="url(#silver)" transform="translate({(1200-ew)/2:g} 1020)"/>
-<path d="M100 1110H548" stroke="{BLUE}" stroke-width="8"/><circle cx="600" cy="1110" r="13" fill="{GOLD}"/><path d="M652 1110H1100" stroke="{GOLD}" stroke-width="8"/>
-<path d="{tagline}" fill="#C9D8E7" transform="translate({(1200-tw)/2:g} 1140)"/>
+<g transform="translate(227 18) scale(.78)">{core}{frame()}</g>
+<g transform="translate(17 810) scale(1.095 .68)">{wordmark_paths()}</g>
+<path d="{enterprise}" fill="none" stroke="url(#silver)" stroke-width="9" stroke-linejoin="miter" transform="translate({(1254-ew)/2:g} 1002)"/>
+<path d="M92 1110H580" stroke="{BLUE}" stroke-width="8"/><circle cx="627" cy="1110" r="13" fill="{GOLD}"/><path d="M674 1110H1162" stroke="{GOLD}" stroke-width="8"/>
+<path d="{tagline}" fill="none" stroke="#C9D8E7" stroke-width="4" stroke-linejoin="round" transform="translate({(1254-tw)/2:g} 1145)"/>
 </svg>'''
 
 
