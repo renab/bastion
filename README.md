@@ -76,6 +76,8 @@ Production Bastion is intended to consume the corporation's live branding palett
 
 Industry's approved visual-direction references are maintained in [docs/ui-ux/industry/Industry UI Reference.md](docs/ui-ux/industry/Industry%20UI%20Reference.md). They guide product language and interaction hierarchy, not final schema or literal implementation details.
 
+Planetary Industry's approved visual direction and current product-model brief are maintained in [docs/ui-ux/pi/PI UI Reference.md](docs/ui-ux/pi/PI%20UI%20Reference.md).
+
 ## Branding
 
 The current branding direction centers on a blue/gold wormhole emblem representing:
