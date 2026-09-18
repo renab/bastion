@@ -78,6 +78,8 @@ Industry's approved visual-direction references are maintained in [docs/ui-ux/in
 
 Planetary Industry's approved visual direction and current product-model brief are maintained in [docs/ui-ux/pi/PI UI Reference.md](docs/ui-ux/pi/PI%20UI%20Reference.md).
 
+The source-audited cross-domain visual-reference corpus is maintained in [docs/ui-ux/Visual Reference Corpus.md](docs/ui-ux/Visual%20Reference%20Corpus.md). It preserves the existing Industry and PI references while adding current design references for the remaining product domains.
+
 ## Branding
 
 The current branding direction centers on a blue/gold wormhole emblem representing:
