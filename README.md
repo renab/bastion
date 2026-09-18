@@ -74,6 +74,8 @@ The Naffin Enterprises prototype palette is currently:
 
 Production Bastion is intended to consume the corporation's live branding palette from EVE-supported data surfaces where available.
 
+Industry's approved visual-direction references are maintained in [docs/ui-ux/industry/Industry UI Reference.md](docs/ui-ux/industry/Industry%20UI%20Reference.md). They guide product language and interaction hierarchy, not final schema or literal implementation details.
+
 ## Branding
 
 The current branding direction centers on a blue/gold wormhole emblem representing:
